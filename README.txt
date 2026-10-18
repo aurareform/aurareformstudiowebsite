@@ -17,8 +17,9 @@ V11'de:
   menü sırasıyla: Pilates → Yoga → Fitness → Dance → Hakkımızda → SSS → İletişim → Pilates.
 - Branş galerileri: fotoğraf okları ve alttaki küçük resimler kaldırıldı; fotoğraflar kendiliğinden
   3,8 sn'de bir geçer (önce 5 sn). Üzerine gelince durur; klavye okları ve parmakla kaydırma çalışır.
-- Pilates programları: Reformer, Tower Mat, Gymnastics, Ladder Barrel, Chair,
-  Schroth Egzersizleri, Corelign.
+- Pilates programları: Reformer, Tower Mat, Çocuk Gymnastics, Schroth Egzersizleri,
+  L.Barrel & Chair, Corelign.
+- Pilates galerisi Gallery/pilates klasöründen yenilendi: 10 fotoğraf (16:9, kimse kesilmeden).
 - Yoga programları: Mat Yoga, Aerial & Hammock Yoga, Aerial Hoop, Çocuklara Özel.
 - Fitness programları: Fitness, Cardio, Functional, Resistance.
 - Dance programları: Latin Dansları, Swing Dansları, Çocuklara Özel, Düğün Dansı, Tango,
