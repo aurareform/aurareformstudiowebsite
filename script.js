@@ -97,44 +97,235 @@ document.addEventListener('dragstart', (event) => {
   if (event.target.closest('img')) event.preventDefault();
 });
 
-// Ana sayfa: kürenin kenarından rastgele saçılan ışıklar. Her parlama/zerre açılışta rastgele
-// bir açı, süre ve başlangıç anı alır; her turu bitirdiğinde (o an görünmezken) yeni bir
-// rastgele açıya geçer. JS yalnızca bu tur bitişlerinde çalışır, hareketi GPU yapar.
-document.querySelectorAll('[data-rim-lights]').forEach((host) => {
-  if (reducedMotion) return;
-  const lights = [...host.children];
-  // Aura dalgaları aynı yerden arka arkaya çıkmasın: 12 rastgele aday arasından son üç
-  // dalganın yönüne en uzak olanı seçilir. Zerreler tamamen rastgele.
-  const recentWaves = [];
-  const gap = (a, b) => Math.abs(((a - b + 540) % 360) - 180);
-  const newAngle = (el) => {
-    let angle = Math.random() * 360;
-    if (el.classList.contains('rim-flare')) {
-      let best = -1;
-      for (let i = 0; i < 12; i += 1) {
-        const candidate = Math.random() * 360;
-        const nearest = recentWaves.length ? Math.min(...recentWaves.map((r) => gap(r, candidate))) : 360;
-        if (nearest > best) { best = nearest; angle = candidate; }
-      }
-      recentWaves.push(angle);
-      if (recentWaves.length > 3) recentWaves.shift();
-    }
-    el.style.setProperty('--a', `${Math.round(angle)}deg`);
+// Kenarlarda dalgalanan aura (kuzey ışığı) perdeleri, kenar hâlesi ve süzülen ışık zerreleri.
+// V9 efekti; V11'de tüm hareketler yarı hızda (saat yarı hızda akar, zerreler yarı hızda yükselir).
+document.querySelectorAll('[data-aura-waves]').forEach((canvas) => {
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const host = canvas.parentElement;
+  // data-aura-waves="lite": ana sayfa dışındaki sayfalar için daha soluk ve çok daha ucuz sürüm
+  // (daha az perde, çekirdek ışık yok, seyrek satırlar, az zerre, ~20 kare/sn).
+  const lite = canvas.dataset.auraWaves === 'lite';
+  // Marka renkleri: mavi, camgöbeği, aura yeşili, limon yeşili.
+  const palette = [[47, 135, 255], [49, 215, 255], [90, 236, 150], [149, 228, 31]];
+  let width = 0;
+  let height = 0;
+  let step = 3;
+  let curtains = [];
+  let motes = [];
+  let running = false;
+  let frame;
+
+  const rand = (min, max) => min + Math.random() * (max - min);
+
+  // Ortası parlak, dört kenarı şeffaf yumuşak bir ışık çizgisi; her renk için bir kez çizilir.
+  const makeSprite = ([r, g, b]) => {
+    const sprite = document.createElement('canvas');
+    sprite.width = 128;
+    sprite.height = 16;
+    const s = sprite.getContext('2d');
+    const across = s.createLinearGradient(0, 0, 128, 0);
+    across.addColorStop(0, `rgba(${r},${g},${b},0)`);
+    across.addColorStop(0.5, `rgba(${r},${g},${b},1)`);
+    across.addColorStop(1, `rgba(${r},${g},${b},0)`);
+    s.fillStyle = across;
+    s.fillRect(0, 0, 128, 16);
+    const fade = s.createLinearGradient(0, 0, 0, 16);
+    fade.addColorStop(0, 'rgba(0,0,0,0)');
+    fade.addColorStop(0.5, 'rgba(0,0,0,1)');
+    fade.addColorStop(1, 'rgba(0,0,0,0)');
+    s.globalCompositeOperation = 'destination-in';
+    s.fillStyle = fade;
+    s.fillRect(0, 0, 128, 16);
+    return sprite;
   };
-  const waves = lights.filter((el) => el.classList.contains('rim-flare'));
-  lights.forEach((el) => {
-    const flare = el.classList.contains('rim-flare');
-    // Dalgalar sayfa kenarına kadar gider: yavaş ve seyrek olsun.
-    const duration = flare ? 18 + Math.random() * 8 : 6 + Math.random() * 6;
-    newAngle(el);
-    el.style.setProperty('--t', `${duration.toFixed(1)}s`);
-    if (!flare) el.style.setProperty('--out', (0.12 + Math.random() * 0.22).toFixed(2));
-    // Dalgaların başlangıçları eşit aralıklı (üst üste binmesinler); zerreler rastgele.
-    const offset = flare ? (waves.indexOf(el) / waves.length) * duration : Math.random() * duration;
-    el.style.animationDelay = `${(-offset).toFixed(1)}s`;
-    // Süre sabit kalır (değiştirmek animasyonu sıçratır); yalnızca açı yenilenir.
-    el.addEventListener('animationiteration', () => newAngle(el));
-  });
+  const sprites = palette.map(makeSprite);
+
+  // Işık zerresi: beyaz çekirdek → renk → şeffaf. Her karede gradyan oluşturmak yerine bir kez çizilir.
+  const makeMote = ([r, g, b]) => {
+    const sprite = document.createElement('canvas');
+    sprite.width = 32;
+    sprite.height = 32;
+    const s = sprite.getContext('2d');
+    const dot = s.createRadialGradient(16, 16, 0, 16, 16, 16);
+    dot.addColorStop(0, 'rgba(255,255,240,1)');
+    dot.addColorStop(0.35, `rgba(${r},${g},${b},.6)`);
+    dot.addColorStop(1, `rgba(${r},${g},${b},0)`);
+    s.fillStyle = dot;
+    s.fillRect(0, 0, 32, 32);
+    return sprite;
+  };
+  const moteSprites = palette.map(makeMote);
+
+  const build = () => {
+    const narrow = width < 760;
+    const reach = Math.min(Math.max(width * 0.11, 70), 190);
+    const perSide = narrow || lite ? 2 : 3;
+    step = lite ? 11 : narrow ? 9 : 7; // seyrek satırlar, her biri daha uzun ve yumuşak çizilir
+    curtains = [];
+    [-1, 1].forEach((side) => {
+      for (let i = 0; i < perSide; i += 1) {
+        const a = (i + (side > 0 ? 1 : 0)) % palette.length;
+        curtains.push({
+          side,
+          base: reach * (0.32 + i * 0.3),
+          amp: reach * rand(0.25, 0.42),
+          size: reach * rand(0.9, 1.5),
+          a,
+          b: (a + 2) % palette.length,
+          phase: rand(0, Math.PI * 2),
+          speed: rand(0.18, 0.32),
+          alpha: lite ? rand(0.2, 0.28) : rand(0.34, 0.48),
+        });
+      }
+    });
+    motes = Array.from({ length: Math.round(height / (lite ? 48 : narrow ? 30 : 20)) }, () => ({
+      side: Math.random() < 0.5 ? -1 : 1,
+      x: rand(0, reach * 1.6),
+      y: rand(0, height),
+      r: rand(1, 2.6),
+      rise: rand(6, 16),
+      twinkle: rand(0, Math.PI * 2),
+      sprite: moteSprites[Math.floor(rand(0, moteSprites.length))],
+    }));
+  };
+
+  const resize = () => {
+    // Işık zaten yumuşak ve bulanık: yarım çözünürlükte çizip CSS ile büyütmek gözle fark edilmez,
+    // ama boyanacak pikselleri dörtte birine indirir.
+    const dpr = 0.5;
+    const nextWidth = host.clientWidth;
+    const nextHeight = host.clientHeight;
+    if (nextWidth === width && nextHeight === height) return false;
+    width = nextWidth;
+    height = nextHeight;
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    build();
+    return true;
+  };
+
+  const draw = (time) => {
+    const t = time / 1000;
+    ctx.clearRect(0, 0, width, height);
+    ctx.globalCompositeOperation = 'lighter';
+
+    // Kenarlardan içeri doğru sönen, nefes alan geniş hâle.
+    const haze = Math.min(Math.max(width * 0.2, 120), 340);
+    [-1, 1].forEach((side, i) => {
+      const breathe = 0.05 + 0.025 * Math.sin(t * 0.5 + i * 2);
+      const x0 = side < 0 ? 0 : width;
+      const x1 = side < 0 ? haze : width - haze;
+      const glow = ctx.createLinearGradient(x0, 0, x1, 0);
+      glow.addColorStop(0, `rgba(49,215,255,${breathe})`);
+      glow.addColorStop(0.5, `rgba(90,236,150,${breathe * 0.45})`);
+      glow.addColorStop(1, 'rgba(47,135,255,0)');
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = glow;
+      ctx.fillRect(Math.min(x0, x1), 0, haze, height);
+    });
+
+    // Aura perdeleri: dalgalanan bir eksen boyunca üst üste binen yumuşak ışık çizgileri.
+    const k = 1 / Math.max(height * 0.18, 120);
+    curtains.forEach((c) => {
+      for (let y = 0; y < height; y += step) {
+        const wave = Math.sin(y * k + t * c.speed + c.phase)
+          + 0.35 * Math.sin(y * k * 2.6 - t * c.speed * 1.7 + c.phase * 1.3);
+        const center = c.base + c.amp * wave;
+        const x = c.side < 0 ? center : width - center;
+        // Yavaş parlaklık dalgaları + perde kıvrımları + ince titreşim.
+        const glow = 0.35 + 0.65 * Math.pow(0.5 + 0.5 * Math.sin(y * 0.009 + t * 0.6 + c.phase), 1.5);
+        const fold = 0.55 + 0.45 * Math.sin(y * 0.045 - t * 1.3 + c.phase * 2);
+        const shimmer = 0.7 + 0.3 * Math.sin(y * 0.22 + t * 3.2 + c.phase);
+        const light = c.alpha * glow * fold * shimmer;
+        if (light < 0.004) continue;
+        const w = c.size * (0.55 + 0.45 * fold);
+        const mix = 0.5 + 0.5 * Math.sin(y * 0.004 + t * 0.25 + c.phase);
+        // Geniş yumuşak perde…
+        ctx.globalAlpha = light * mix * 0.6;
+        ctx.drawImage(sprites[c.a], x - w / 2, y - step * 1.5, w, step * 3);
+        ctx.globalAlpha = light * (1 - mix) * 0.6;
+        ctx.drawImage(sprites[c.b], x - w / 2, y - step * 1.5, w, step * 3);
+        // …ve ortasında parlak, ince çekirdek ışık (hafif sürümde yok).
+        if (lite) continue;
+        const core = w * 0.22;
+        ctx.globalAlpha = Math.min(light * 1.1, 1);
+        ctx.drawImage(sprites[mix > 0.5 ? c.a : c.b], x - core / 2, y - step * 1.25, core, step * 2.5);
+      }
+    });
+
+    // Yukarı süzülen yumuşak ışık zerreleri.
+    motes.forEach((m) => {
+      m.y -= (m.rise / 120) * (frameGap / 31);
+      if (m.y < -10) m.y = height + 10;
+      const x = m.side < 0 ? m.x : width - m.x;
+      const size = m.r * 8;
+      ctx.globalAlpha = 0.25 + 0.55 * Math.abs(Math.sin(t * 0.9 + m.twinkle));
+      ctx.drawImage(m.sprite, x - size / 2, m.y - size / 2, size, size);
+    });
+
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
+  };
+
+  // Tek bir sürekli saat: durağan ilk kare ile hareketli kareler arasında sıçrama olmaz.
+  const clock = () => (performance.now() + 8000) * 0.5;
+  let started = false; // sayfanın giriş animasyonları rahatlayana kadar hareket başlamaz
+  let onScreen = true;
+  // Perdeler yavaş hareket eder: saniyede ~24 kare (hafif sürümde ~16) yeterli;
+  // sayfanın geri kalanı tam hızda akar.
+  const frameGap = lite ? 62 : 41;
+  let lastDraw = 0;
+  const loop = (now) => {
+    if (now - lastDraw >= frameGap) {
+      lastDraw = now;
+      draw(clock());
+    }
+    if (running) frame = window.requestAnimationFrame(loop);
+  };
+  const play = () => {
+    if (running || reducedMotion || !started || !onScreen || document.hidden) return;
+    running = true;
+    frame = window.requestAnimationFrame(loop);
+  };
+  const pause = () => {
+    running = false;
+    window.cancelAnimationFrame(frame);
+  };
+
+  resize();
+  draw(clock());
+
+  // Yazı tipi yüklenince ya da pencere değişince alan boyutu değişebilir. Kare başına en fazla
+  // bir kez bakılır ve katman yalnızca boyut gerçekten değiştiyse yeniden kurulur.
+  let refitQueued = false;
+  const refit = () => {
+    if (refitQueued) return;
+    refitQueued = true;
+    window.requestAnimationFrame(() => {
+      refitQueued = false;
+      if (resize() && !running) draw(clock());
+    });
+  };
+  if ('ResizeObserver' in window) new ResizeObserver(refit).observe(host);
+  else window.addEventListener('resize', refit);
+
+  // Ekranda değilken çizimi durdur.
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting;
+      if (onScreen) play(); else pause();
+    }).observe(host);
+  }
+  document.addEventListener('visibilitychange', () => (document.hidden ? pause() : play()));
+
+  // İlk açılışta tarayıcı yazı tiplerini, görselleri ve giriş animasyonlarını işlerken
+  // ışık hareketini bekletmek takılmayı önler.
+  window.setTimeout(() => { started = true; play(); }, 700);
 });
 
 // Sayaçlar: görününce 0'dan hedef değere yumuşak artış.

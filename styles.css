@@ -1799,130 +1799,6 @@ body::before {
 /* No slow background pan either (sliding motion; less work per frame) */
 .home-page .hero-poster { animation: none; }
 
-/* Class & lesson types: a compact chip band above the branch cards */
-.offer-band {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px 22px;
-}
-.offer-group {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 8px 10px;
-}
-.offer-label {
-  color: var(--gold);
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: .24em;
-  text-transform: uppercase;
-}
-.offer-chips {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 7px;
-}
-.offer-chips li {
-  position: relative;
-  overflow: hidden;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 6px 13px 6px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(233,199,125,.24);
-  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.014));
-  color: #f1ece3;
-  font-size: 13px;
-  white-space: nowrap;
-  transition: border-color .3s ease, box-shadow .3s ease, transform .3s cubic-bezier(.2,.7,.2,1);
-}
-.offer-chips li::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.14) 50%, transparent 65%);
-  transform: translateX(-120%);
-  transition: transform .8s ease;
-  pointer-events: none;
-}
-.offer-chips li:hover {
-  border-color: rgba(233,199,125,.7);
-  box-shadow: 0 0 18px rgba(233,199,125,.18);
-  transform: translateY(-2px);
-}
-.offer-chips li:hover::after { transform: translateX(120%); }
-.offer-chips svg {
-  width: 16px;
-  height: 16px;
-  flex: none;
-  fill: none;
-  stroke: var(--gold);
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  filter: drop-shadow(0 0 4px rgba(233,199,125,.5));
-}
-.offer-divider {
-  width: 1px;
-  height: 24px;
-  background: linear-gradient(180deg, transparent, rgba(233,199,125,.6), transparent);
-}
-@media (max-width: 1120px) {
-  .offer-divider { display: none; }
-  .offer-band { flex-direction: column; gap: 12px; }
-}
-
-/* Branch cards: rise in when seen, spinning globe, pointer light, glowing border */
-.home-page .discipline-dock { width: 100%; animation: none; }
-.home-page .discipline-link {
-  min-height: clamp(78px, 10vh, 96px);
-  padding: clamp(10px, 1.4vh, 14px) 16px;
-  transition: transform .35s cubic-bezier(.2,.7,.2,1), border-color .3s ease, background .3s ease, box-shadow .35s ease;
-}
-.home-page .discipline-link::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 0%), rgba(49,215,255,.16), transparent 70%);
-  opacity: 0;
-  transition: opacity .3s ease;
-  pointer-events: none;
-}
-.home-page .discipline-link::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(49,215,255,.8), rgba(149,228,31,.7), rgba(233,199,125,.6));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity .35s ease;
-  pointer-events: none;
-}
-.home-page .discipline-link:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 26px 70px rgba(0,0,0,.45), 0 0 40px rgba(49,215,255,.10);
-}
-.home-page .discipline-link:hover::before,
-.home-page .discipline-link:hover::after { opacity: 1; }
-.home-page .discipline-earth { width: 34px; height: 34px; animation: earthSpin 22s linear infinite; }
-.home-page .discipline-link:hover .discipline-earth { transform: none; scale: 1.12; }
-.discipline-arrow { transition: transform .3s ease; }
-.discipline-link:hover .discipline-arrow { transform: translate(3px, -3px); }
-
 /* Load-in sequence (classes added by script.js; content stays visible without JS).
    Each element sets its own start time with --d. Everything only fades in — no
    sliding, scaling or blur — which keeps the first moments light. */
@@ -1950,15 +1826,6 @@ body::before {
 }
 .anim-ready[data-anim="line"].in-view { transform: scaleX(1); }
 
-/* Branch cards: a keyframe animation (fill: backwards), not a transition,
-   so the delay never applies to the hover lift afterwards. */
-.anim-ready[data-anim="rise"] { opacity: 0; }
-.anim-ready[data-anim="rise"].in-view {
-  opacity: 1;
-  animation: cardRise .8s ease calc(var(--d, 0s) * var(--seq, 1)) backwards;
-}
-
-@keyframes cardRise { from { opacity: 0; } }
 @keyframes earthSpin { to { rotate: 360deg; } }
 @keyframes ringSpin { to { transform: rotate(360deg); } }
 @keyframes ringPulse {
@@ -1975,7 +1842,6 @@ body::before {
   .service-copy { gap: 3px; }
   .wellness-statement { font-size: 14px; line-height: 1.42; }
   .wellness-standard { font-size: 17px; }
-  .home-page .discipline-link { min-height: 74px; }
 }
 /* Short screens (768px and below) */
 @media (min-width: 1121px) and (max-height: 780px) {
@@ -1988,9 +1854,6 @@ body::before {
   .wellness-statement { font-size: 13.5px; line-height: 1.38; }
   .signature-line { font-size: 12px; }
   .wellness-standard { font-size: 16px; }
-  .home-page .discipline-link { min-height: 64px; padding-block: 8px; }
-  .home-page .discipline-earth { width: 26px; height: 26px; }
-  .home-page .discipline-title { font-size: 24px; }
 }
 
 @media (max-width: 760px) {
@@ -2006,7 +1869,6 @@ body::before {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-page .discipline-earth,
   .service-ring::before,
   .service-ring::after { animation: none !important; }
 }
@@ -3027,200 +2889,20 @@ body::before {
 }
 
 /* =========================================================
-   V10 — HOME: V9 ROUND GLOW + SIDE AURORA CURTAINS, SPORT CARDS
-   WITH MOVING LIGHT RINGS; PHOTO PROTECTION
+   V10 — HOME OVERLAY TINT; PHOTO PROTECTION
    ========================================================= */
 
-/* Background: a large dark sphere behind the text with a thin rim of light, and curved
-   aura arcs that rise from the lower corners and end at the edges of the text column,
-   with small motes scattering outward from there. The sphere is still; arcs and motes
-   only animate opacity/transform (done by the GPU, nothing runs per frame). */
 .home-page .hero-overlay {
   background:
     radial-gradient(ellipse 60% 40% at 50% 8%, rgba(49,180,220,.08), transparent 70%),
     linear-gradient(180deg, rgba(5,6,7,0), rgba(5,6,7,.25) 40%, rgba(5,6,7,.75));
 }
-.planet {
-  --p: min(96vmin, 1000px); /* sphere diameter; the rim lights use it to sit on the edge */
-  position: absolute;
-  left: 50%;
-  top: 4%;
-  width: var(--p);
-  aspect-ratio: 1;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 50% 16%, rgba(80,160,200,.2), transparent 40%),
-    radial-gradient(circle at 50% 52%, rgba(8,16,22,.95) 50%, rgba(12,34,46,.92) 72%, rgba(22,66,82,.6) 100%);
-  box-shadow:
-    inset 0 2px 1px rgba(150,230,255,.3),
-    inset 0 24px 60px rgba(49,215,255,.1),
-    0 -4px 40px rgba(49,215,255,.12),
-    0 0 140px rgba(20,120,140,.12);
-}
-
-/* Lights bursting out of the sphere at random points on its rim. Each one is anchored
-   at the sphere's centre and pushed out to the rim at angle --a; script.js picks a new
-   random --a every time one finishes a cycle (while it is invisible). */
-.rim-lights { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
-/* Aura waves: a soft arc of light hugging part of the rim (about 120°, feathered ends)
-   swells outward from the sphere and fades — like a pulse of aura leaving the planet.
-   Each wave is a sphere-sized ring, masked to one arc and rotated to angle --a; scaling
-   it from the centre makes the arc travel outward while keeping the sphere's curve.
-   Bright thin edge on the outside, soft halo inside; cyan and green alternate. */
-.rim-flare {
-  --c: 70, 230, 230;
-  position: absolute;
-  left: calc(var(--p) * -.5);
-  top: calc(var(--p) * -.5);
-  width: var(--p);
-  height: var(--p);
-  border-radius: 50%;
-  /* a narrow band at the edge (it widens as the wave grows, so it starts thin) */
-  background: radial-gradient(closest-side,
-    transparent 89%,
-    rgba(var(--c), .12) 93.5%,
-    rgba(var(--c), .4) 97%,
-    rgba(200, 255, 245, .6) 99%,
-    transparent 100%);
-  /* about a 75° arc with feathered ends */
-  -webkit-mask: conic-gradient(from -38deg, transparent 0deg, #000 25deg, #000 51deg, transparent 76deg, transparent 360deg);
-  mask: conic-gradient(from -38deg, transparent 0deg, #000 25deg, #000 51deg, transparent 76deg, transparent 360deg);
-  opacity: 0;
-  transform: rotate(var(--a, 0deg)) scale(.98);
-  animation: rimFlare var(--t, 9s) cubic-bezier(.2,.6,.3,1) infinite;
-  will-change: transform, opacity;
-}
-.rim-flare:nth-child(2) { --c: 80, 235, 160; }
-.rim-flare:nth-child(3) { --c: 60, 190, 255; }
-.rim-flare:nth-child(4) { --c: 80, 235, 160; }
-/* Small motes drifting outward from the rim */
-.rim-mote {
-  position: absolute;
-  left: -2.5px;
-  top: -2.5px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #eafff6 0 25%, rgba(90,255,190,.8) 40%, rgba(49,215,255,0) 70%);
-  opacity: 0;
-  transform: rotate(var(--a, 0deg)) translateY(calc(var(--p) * -.49));
-  animation: rimMote var(--t, 8s) linear infinite;
-  will-change: transform, opacity;
-}
-/* Waves travel all the way out to the page edges (≈2× the sphere radius), fading as they go */
-@keyframes rimFlare {
-  0% { opacity: 0; transform: rotate(var(--a, 0deg)) scale(.98); }
-  14% { opacity: .8; }
-  55% { opacity: .38; }
-  100% { opacity: 0; transform: rotate(var(--a, 0deg)) scale(2.2); }
-}
-@keyframes rimMote {
-  0% { opacity: 0; transform: rotate(var(--a, 0deg)) translateY(calc(var(--p) * -.49)) scale(.6); }
-  15% { opacity: .9; }
-  100% { opacity: 0; transform: rotate(var(--a, 0deg)) translateY(calc(var(--p) * (-.5 - var(--out, .2)))) scale(1.4); }
-}
-/* Used by the light sweeps on the sport cards */
-@keyframes ringTurn { to { transform: rotate(360deg); } }
-@keyframes ringTurnBack {
-  from { transform: rotate(360deg) scale(1.04); }
-  to { transform: rotate(0deg) scale(1.04); }
-}
-
-/* Sport cards: big title, same subtitle, light-ring image on the right, one colour per sport */
-.home-page .sport-card {
-  --card-h: clamp(98px, 13vh, 132px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  min-height: var(--card-h);
-  padding: 0 0 0 clamp(14px, 1.4vw, 20px);
-  border-color: rgba(var(--tone), .4);
-  background:
-    radial-gradient(ellipse 60% 90% at 82% 50%, rgba(var(--tone), .16), transparent 70%),
-    linear-gradient(180deg, rgba(14,18,22,.85), rgba(8,10,13,.82));
-  box-shadow: 0 18px 50px rgba(0,0,0,.4), inset 0 0 26px rgba(var(--tone), .06);
-}
-.home-page .sport-card::before { background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 0%), rgba(var(--tone), .2), transparent 70%); }
-.home-page .sport-card::after { background: linear-gradient(135deg, rgba(var(--tone), .95), rgba(var(--tone), .25) 55%, rgba(var(--tone), .75)); }
-.home-page .sport-card:hover { box-shadow: 0 26px 70px rgba(0,0,0,.45), 0 0 34px rgba(var(--tone), .25); }
-.sport-card-copy { position: relative; z-index: 1; display: grid; gap: 7px; min-width: 0; }
-.home-page .sport-card .discipline-title {
-  color: #fff;
-  font-size: clamp(22px, 1.9vw, 30px);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: .02em;
-  text-shadow: 0 0 18px rgba(var(--tone), .55);
-}
-.home-page .sport-card .discipline-sub { margin-top: 0; }
-.sport-card-art {
-  position: relative;
-  flex: none;
-  width: var(--card-h);
-  height: var(--card-h);
-  transition: transform .5s cubic-bezier(.2,.7,.2,1);
-}
-.sport-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Circular, soft-edged window onto the ring artwork */
-  -webkit-mask: radial-gradient(closest-side, #000 76%, transparent 100%);
-  mask: radial-gradient(closest-side, #000 76%, transparent 100%);
-}
-/* Moving light: two sweeps travel round the painted ring in opposite directions.
-   A rotating, ring-masked layer — composited by the GPU. */
-.sport-card-art::before,
-.sport-card-art::after {
-  content: '';
-  position: absolute;
-  inset: 4%;
-  border-radius: 50%;
-  mix-blend-mode: screen;
-  -webkit-mask: radial-gradient(closest-side, transparent 84%, #000 88%, #000 95%, transparent 100%);
-  mask: radial-gradient(closest-side, transparent 84%, #000 88%, #000 95%, transparent 100%);
-  pointer-events: none;
-}
-.sport-card-art::before {
-  background: conic-gradient(transparent 0deg 200deg, rgba(var(--tone), .9) 290deg, #fff 325deg, rgba(var(--tone), .9) 340deg, transparent 360deg);
-  animation: ringTurn 6s linear infinite;
-}
-.sport-card-art::after {
-  background: conic-gradient(from 180deg, transparent 0deg 250deg, rgba(255,255,255,.55) 320deg, transparent 360deg);
-  opacity: .7;
-  animation: ringTurnBack 9.5s linear infinite;
-}
-.home-page .sport-card:hover .sport-card-art { transform: scale(1.06); }
-
-@media (min-width: 1121px) and (max-height: 940px) {
-  .home-page .sport-card { --card-h: 104px; }
-}
-@media (min-width: 1121px) and (max-height: 780px) {
-  .home-page .sport-card { --card-h: 88px; }
-  .home-page .sport-card .discipline-title { font-size: 22px; }
-}
-@media (max-width: 760px) {
-  .planet { --p: 120vw; top: 2%; }
-  .home-page .sport-card { --card-h: 84px; padding-left: 12px; }
-  .home-page .sport-card .discipline-title { font-size: 18px; }
-  .home-page .sport-card .discipline-sub { font-size: 8.5px; }
-}
-
 /* Photos: no drag-to-save, no long-press save menu, no selection
    (script.js also blocks the right-click menu on photos) */
 img {
   -webkit-user-drag: none;
   -webkit-touch-callout: none;
   user-select: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .rim-flare,
-  .rim-mote,
-  .sport-card-art::before,
-  .sport-card-art::after { animation: none !important; }
 }
 
 /* =========================================================
@@ -3295,4 +2977,215 @@ img {
 @media (prefers-reduced-motion: reduce) {
   .wave-side span,
   .page-motes span { animation: none !important; }
+}
+
+/* =========================================================
+   V11 — HOME: FAINT BRAND LOGO ABOVE THE KICKER, V9 SIDE AURORA (SLOWER)
+   ========================================================= */
+/* Brand logo above the kicker: crisp, full colour */
+.home-logo {
+  display: block;
+  width: clamp(220px, 21vw, 330px);
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto clamp(10px, 1.8vh, 18px);
+  filter: drop-shadow(0 6px 24px rgba(49,215,255,.18));
+}
+/* Where the sphere used to be: the Aura globe, very dark and faint, behind the text (static) */
+.hero-mark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(96vmin, 1000px); /* same size as the old sphere */
+  height: auto;
+  max-width: none;
+  transform: translate(-50%, -50%);
+  opacity: .07;
+  filter: brightness(.55) saturate(.6);
+}
+@media (max-width: 760px) {
+  .hero-mark { width: 92vw; top: 38%; }
+}
+/* The v9 side aurora canvas is back (drawn by script.js at half the v9 speed) */
+.aura-waves {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  animation: auraFadeIn 1.4s .1s ease both;
+}
+@keyframes auraFadeIn { from { opacity: 0; } }
+@media (min-width: 1121px) and (max-height: 940px) {
+  .home-logo { width: 250px; margin-bottom: 10px; }
+}
+@media (min-width: 1121px) and (max-height: 780px) {
+  .home-logo { width: 210px; margin-bottom: 6px; }
+}
+
+/* =========================================================
+   V11 — BRANCH PAGES: PREVIOUS / NEXT ARROWS BESIDE THE TITLE
+   ========================================================= */
+.branch-head {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1.2vw, 18px);
+  margin-top: 10px;
+}
+.branch-head .branch-title { margin: 0; }
+.branch-step {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  color: rgba(243,246,248,.82);
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(8,12,16,.55);
+  transition: color .3s ease, border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+}
+.branch-step svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.branch-step:hover,
+.branch-step:focus-visible {
+  color: var(--brand-cyan);
+  border-color: rgba(49,215,255,.55);
+  box-shadow: 0 0 22px rgba(49,215,255,.22);
+  transform: scale(1.06);
+}
+@media (min-width: 1121px) and (max-height: 780px) {
+  .branch-head { margin-top: 6px; }
+  .branch-step { width: 40px; height: 40px; }
+}
+@media (max-width: 760px) {
+  .branch-step { width: 38px; height: 38px; }
+  .branch-step svg { width: 17px; height: 17px; }
+}
+
+/* =========================================================
+   V11 — SSS: CLASSES / SESSIONS / LESSONS ABOVE THE QUESTIONS
+   The page may scroll now; the left column stays in view on desktop.
+   ========================================================= */
+.faq-side { display: grid; gap: clamp(18px, 2.6vh, 26px); min-width: 0; }
+.offer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.offer-card {
+  position: relative;
+  overflow: hidden;
+  padding: 16px 16px 14px;
+  border: 1px solid rgba(233,199,125,.22);
+  border-radius: 18px;
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(233,199,125,.09), transparent 70%),
+    linear-gradient(180deg, rgba(14,17,21,.82), rgba(8,10,13,.76));
+  transition: border-color .35s ease, box-shadow .35s ease;
+}
+/* Thin gold line across the top of each card */
+.offer-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 18%;
+  right: 18%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  box-shadow: 0 0 10px rgba(233,199,125,.6);
+}
+.offer-card:hover {
+  border-color: rgba(233,199,125,.5);
+  box-shadow: 0 16px 40px rgba(0,0,0,.35), 0 0 26px rgba(233,199,125,.1);
+}
+.offer-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 11px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(233,199,125,.18);
+}
+.offer-ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(5,6,7,.92) 58%, rgba(49,215,255,.08));
+}
+.offer-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  padding: 1.5px;
+  background: conic-gradient(var(--brand-blue), var(--brand-cyan), var(--brand-lime), var(--gold), var(--brand-blue));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: ringSpin 9s linear infinite;
+}
+.offer-card:nth-child(2) .offer-ring::before { animation-delay: -3s; }
+.offer-card:nth-child(3) .offer-ring::before { animation-delay: -6s; }
+.offer-ring svg,
+.offer-card li svg {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.offer-ring svg { width: 19px; height: 19px; filter: drop-shadow(0 0 4px rgba(233,199,125,.5)); }
+.offer-head h2 {
+  margin: 0;
+  color: var(--gold);
+  font-family: var(--sans, inherit);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+}
+.offer-card ul { margin: 0; padding: 0; list-style: none; }
+.offer-card li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 4px;
+  color: #ece7de;
+  font-size: clamp(13.5px, .98vw, 15px);
+  line-height: 1.25;
+  transition: color .25s ease;
+}
+.offer-card li + li { border-top: 1px dashed rgba(255,255,255,.07); }
+.offer-card li:hover { color: #fff; }
+.offer-card li svg { width: 17px; height: 17px; flex: none; opacity: .9; }
+
+@media (min-width: 1121px) {
+  .faq-layout { align-items: start; }
+  .faq-layout > .branch-copy { position: sticky; top: calc(var(--header-h) + 28px); }
+  /* overflow: hidden would make the screen its own scroll box and stop sticky; clip doesn't */
+  .faq-page .branch-screen { overflow: clip; }
+}
+@media (max-width: 1120px) {
+  .offer-card { padding: 14px 14px 12px; }
+}
+@media (max-width: 760px) {
+  .offer-grid { grid-template-columns: 1fr; gap: 10px; }
+  .offer-card ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 10px; }
+  .offer-card li + li { border-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .offer-ring::before { animation: none !important; }
 }

@@ -1,3 +1,24 @@
+AURA REFORM — V11
+=================
+
+V11'de:
+- Ana sayfa: "LONGEVITY & WELLNESS STUDIO" yazısının üstünde net Aura Reform logosu.
+- Ana sayfa arka planı: küre ve ondan çıkan aura dalgaları kaldırıldı; yerine logodaki dünya,
+  yazılarla karışmayacak şekilde çok koyu ve soluk (hareketsiz).
+- Ana sayfa kenarları: V9'daki dalgalanan aura perdeleri ve süzülen ışık zerreleri geri geldi,
+  tüm hareketleri yarı hızda (saniyede ~24 kare, ekranda değilken/sekme gizliyken durur).
+- Ana sayfadan branş kutuları ve Sınıflar/Dersler bandı kaldırıldı. Masaüstünde tek ekran.
+- SSS: soruların üstünde üç kart — Sınıflar (Kadınlara özel, Erkeklere özel, Karma),
+  Seanslar (Stüdyo, Online, Outdoor, Kurumsal), Dersler (Bireysel, Duet, Sosyal Grup, Özel Grup).
+  SSS sayfası artık aşağı kayabilir; masaüstünde soldaki bölüm kayarken yerinde durur.
+- Branş sayfaları: başlığın iki yanında önceki/sonraki branş okları
+  (Pilates → Yoga → Fitness → Dance → Pilates).
+- Yoga programları: Mat Yoga, Aerial & Hammock Yoga, Aerial Hoop, Çocuk Gymnastics.
+- Dance programları: Latin Dansları, Swing Dansları, Çocuklar için Dans, Düğün Dansı, Tango,
+  Flamenko / Paso Doble.
+- Dance galerisine 10. fotoğraf (dance-10.jpg) eklendi.
+- Site artık GitHub'da aurareform/aurareformstudiowebsite deposunda.
+
 AURA REFORM — V10
 =================
 
