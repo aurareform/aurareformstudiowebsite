@@ -17,7 +17,10 @@ V11'de:
   menü sırasıyla: Pilates → Yoga → Fitness → Dance → Hakkımızda → SSS → İletişim → Pilates.
 - Branş galerileri: fotoğraf okları ve alttaki küçük resimler kaldırıldı; fotoğraflar kendiliğinden
   3,8 sn'de bir geçer (önce 5 sn). Üzerine gelince durur; klavye okları ve parmakla kaydırma çalışır.
-- Yoga programları: Mat Yoga, Aerial & Hammock Yoga, Aerial Hoop, Çocuk Gymnastics.
+- Pilates programları: Reformer, Tower Mat, Gymnastics, Ladder Barrel, Chair,
+  Schroth Egzersizleri, Corelign.
+- Yoga programları: Mat Yoga, Aerial & Hammock Yoga, Aerial Hoop, Çocuklara Özel.
+- Fitness programları: Fitness, Cardio, Functional, Resistance.
 - Dance programları: Latin Dansları, Swing Dansları, Çocuklara Özel, Düğün Dansı, Tango,
   Flamenko / Paso Doble (kutuda alt alta).
 - Dance galerisine 10. fotoğraf (dance-10.jpg) eklendi.
