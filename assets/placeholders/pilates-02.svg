@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000" fill="none">
+<rect width="1400" height="1000" fill="#050709"/>
+<defs>
+  <radialGradient id="a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1010 220) rotate(132) scale(560 580)"><stop stop-color="#2F87FF" stop-opacity=".42"/><stop offset="1" stop-color="#2F87FF" stop-opacity="0"/></radialGradient>
+  <radialGradient id="b" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(330 760) rotate(-25) scale(520 480)"><stop stop-color="#D7FF75" stop-opacity=".27"/><stop offset="1" stop-color="#D7FF75" stop-opacity="0"/></radialGradient>
+  <linearGradient id="line" x1="110" y1="790" x2="1240" y2="170"><stop stop-color="#31D7FF" stop-opacity=".06"/><stop offset=".5" stop-color="#FFFFFF" stop-opacity=".24"/><stop offset="1" stop-color="#95E41F" stop-opacity=".08"/></linearGradient>
+</defs>
+<rect width="1400" height="1000" fill="url(#a)"/><rect width="1400" height="1000" fill="url(#b)"/>
+<circle cx="1040" cy="260" r="210" stroke="#FFFFFF" stroke-opacity=".10" stroke-width="2"/>
+<circle cx="1040" cy="260" r="290" stroke="#31D7FF" stroke-opacity=".08" stroke-width="2"/>
+<path d="M110 815C330 690 505 650 690 671C890 694 1010 790 1285 690" stroke="url(#line)" stroke-width="3"/>
+<path d="M170 740C365 620 520 592 700 614C875 636 1005 710 1220 632" stroke="#FFFFFF" stroke-opacity=".05" stroke-width="2"/>
+<text x="105" y="122" fill="#31D7FF" font-family="Arial,sans-serif" font-size="22" letter-spacing="6">AURA REFORM</text>
+<text x="105" y="665" fill="#F2F7F8" font-family="Arial,sans-serif" font-weight="300" font-size="92" letter-spacing="1">PILATES</text>
+<text x="108" y="720" fill="#AFC0CB" font-family="Arial,sans-serif" font-size="22" letter-spacing="4">GÖRSEL 02</text>
+</svg>
