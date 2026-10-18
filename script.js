@@ -549,8 +549,8 @@ if (!reducedMotion) {
   });
 }
 
-// Branş galerileri: yumuşak geçiş + yavaş yakınlaşma, ilerleme çizgisi, küçük resimler,
-// oklar, klavye ve parmakla kaydırma (3B eğim: [data-tilt]).
+// Branş galerileri: yumuşak geçiş + yavaş yakınlaşma, ilerleme çizgisiyle otomatik geçiş,
+// klavye ve parmakla kaydırma (V11: oklar ve küçük resimler kaldırıldı; kod yoksa atlar).
 document.querySelectorAll('[data-branch-gallery]').forEach((gallery) => {
   const slides = [...gallery.querySelectorAll('.bg-slide')];
   const thumbs = [...gallery.querySelectorAll('.bg-thumb')];

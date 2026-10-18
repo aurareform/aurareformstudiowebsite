@@ -8,14 +8,18 @@ V11'de:
 - Ana sayfa kenarları: V9'daki dalgalanan aura perdeleri ve süzülen ışık zerreleri geri geldi,
   tüm hareketleri yarı hızda (saniyede ~24 kare, ekranda değilken/sekme gizliyken durur).
 - Ana sayfadan branş kutuları ve Sınıflar/Dersler bandı kaldırıldı. Masaüstünde tek ekran.
-- SSS: soruların üstünde üç kart — Sınıflar (Kadınlara özel, Erkeklere özel, Karma),
-  Seanslar (Stüdyo, Online, Outdoor, Kurumsal), Dersler (Bireysel, Duet, Sosyal Grup, Özel Grup).
-  SSS sayfası artık aşağı kayabilir; masaüstünde soldaki bölüm kayarken yerinde durur.
-- Branş sayfaları: başlığın iki yanında önceki/sonraki branş okları
-  (Pilates → Yoga → Fitness → Dance → Pilates).
+- Ana sayfa yazı bölmeleri: "...merkeze alan," / "bütünsel bir stüdyo deneyimi sunar." ve
+  "...kişisel motivasyonu" / "kalıcı bir disipline dönüştürmek için özenle tasarlanır."
+- SSS: soruların üstünde, V10 ana sayfadaki ikonlu etiket bandı düzeninde —
+  Sınıflar (Kadınlara özel, Erkeklere özel, Karma), Seanslar (Stüdyo, Online, Outdoor, Kurumsal),
+  Dersler (Bireysel, Duet, Sosyal Grup, Özel Grup). SSS sayfası aşağı kayabilir; sol bölüm ortalı.
+- Tüm sayfalarda (SSS, Hakkımızda, İletişim dahil) başlığın iki yanında önceki/sonraki sayfa okları,
+  menü sırasıyla: Pilates → Yoga → Fitness → Dance → Hakkımızda → SSS → İletişim → Pilates.
+- Branş galerileri: fotoğraf okları ve alttaki küçük resimler kaldırıldı; fotoğraflar kendiliğinden
+  3,8 sn'de bir geçer (önce 5 sn). Üzerine gelince durur; klavye okları ve parmakla kaydırma çalışır.
 - Yoga programları: Mat Yoga, Aerial & Hammock Yoga, Aerial Hoop, Çocuk Gymnastics.
-- Dance programları: Latin Dansları, Swing Dansları, Çocuklar için Dans, Düğün Dansı, Tango,
-  Flamenko / Paso Doble.
+- Dance programları: Latin Dansları, Swing Dansları, Çocuklara Özel, Düğün Dansı, Tango,
+  Flamenko / Paso Doble (kutuda alt alta).
 - Dance galerisine 10. fotoğraf (dance-10.jpg) eklendi.
 - Site artık GitHub'da aurareform/aurareformstudiowebsite deposunda.
 

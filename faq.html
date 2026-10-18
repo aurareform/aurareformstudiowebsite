@@ -49,7 +49,11 @@
     <div class="branch-layout faq-layout">
       <section class="branch-copy" aria-labelledby="faq-title">
         <div class="branch-kicker" data-anim="fade-up" style="--d:.15s">Stüdyo prensipleri</div>
-        <h1 class="branch-title" id="faq-title" data-anim="fade-up" style="--d:.25s"><img class="branch-globe" src="assets/earthLogo.png" alt=""><span>SSS</span></h1>
+        <div class="branch-head" data-anim="fade-up" style="--d:.25s">
+          <a class="branch-step" href="trainer.html" aria-label="Önceki: Hakkımızda" title="Hakkımızda"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>
+          <h1 class="branch-title" id="faq-title"><img class="branch-globe" src="assets/earthLogo.png" alt=""><span>SSS</span></h1>
+          <a class="branch-step" href="contact.html" aria-label="Sonraki: İletişim" title="İletişim"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
+        </div>
         <span class="gold-rule" data-anim="line" style="--d:.5s"></span>
 
         <div class="branch-programs">
@@ -75,37 +79,30 @@
       </section>
 
       <div class="faq-side">
-      <!-- SINIFLAR / SEANSLAR / DERSLER — sorulardan önce -->
-      <section class="offer-grid" aria-label="Sınıf, seans ve ders seçenekleri" data-anim="fade-up" style="--d:.3s">
-        <div class="offer-card">
-          <div class="offer-head">
-            <span class="offer-ring"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3 20c0-3 2.2-5 5-5s5 2 5 5M11 20c0-3 2.2-5 5-5s5 2 5 5"/></svg></span>
-            <h2 id="offer-classes">Sınıflar</h2>
-          </div>
-          <ul aria-labelledby="offer-classes">
+      <!-- SINIFLAR / SEANSLAR / DERSLER — v10 ana sayfa bandı düzeninde, sorulardan önce -->
+      <section class="offer-band faq-offer" aria-label="Sınıf, seans ve ders seçenekleri" data-anim="fade-up" style="--d:.3s">
+        <div class="offer-group">
+          <span class="offer-label" id="offer-classes">Sınıflar</span>
+          <ul class="offer-chips" aria-labelledby="offer-classes">
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 18h6"/></svg>Kadınlara özel</li>
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="14" r="5"/><path d="M13.5 10.5 20 4M15 4h5v5"/></svg>Erkeklere özel</li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="13" r="4.5"/><circle cx="15" cy="11" r="4.5"/></svg>Karma</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3 20c0-3 2.2-5 5-5s5 2 5 5M11 20c0-3 2.2-5 5-5s5 2 5 5"/></svg>Karma</li>
           </ul>
         </div>
-        <div class="offer-card">
-          <div class="offer-head">
-            <span class="offer-ring"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
-            <h2 id="offer-sessions">Seanslar</h2>
-          </div>
-          <ul aria-labelledby="offer-sessions">
+        <span class="offer-divider" aria-hidden="true"></span>
+        <div class="offer-group">
+          <span class="offer-label" id="offer-sessions">Seanslar</span>
+          <ul class="offer-chips" aria-labelledby="offer-sessions">
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20H4z"/><path d="M10 20v-5h4v5"/></svg>Stüdyo</li>
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M10.5 7.8l4 2.2-4 2.2z"/></svg>Online</li>
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="7" r="3"/><path d="M2 20l6-8 4 5 3-3 7 6z"/></svg>Outdoor</li>
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M3 13h18"/></svg>Kurumsal</li>
           </ul>
         </div>
-        <div class="offer-card">
-          <div class="offer-head">
-            <span class="offer-ring"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>
-            <h2 id="offer-lessons">Dersler</h2>
-          </div>
-          <ul aria-labelledby="offer-lessons">
+        <span class="offer-divider" aria-hidden="true"></span>
+        <div class="offer-group">
+          <span class="offer-label" id="offer-lessons">Dersler</span>
+          <ul class="offer-chips" aria-labelledby="offer-lessons">
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3.5"/><path d="M5 21c0-4 3.1-7 7-7s7 3 7 7"/></svg>Bireysel</li>
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3 20c0-3 2.2-5 5-5s5 2 5 5M11 20c0-3 2.2-5 5-5s5 2 5 5"/></svg>Duet</li>
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6.5" r="2.5"/><circle cx="5.5" cy="10" r="2.2"/><circle cx="18.5" cy="10" r="2.2"/><path d="M8 19c0-2.5 1.8-4.5 4-4.5s4 2 4 4.5M1.5 20c0-2 1.8-3.6 4-3.6M22.5 20c0-2-1.8-3.6-4-3.6"/></svg>Sosyal Grup</li>
