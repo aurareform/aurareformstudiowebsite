@@ -21,6 +21,7 @@ V11'de:
   L.Barrel & Chair, Corelign.
 - Pilates galerisi Gallery/pilates klasöründen yenilendi: 10 fotoğraf (16:9, kimse kesilmeden).
 - Yoga programları: Mat Yoga, Aerial & Hammock Yoga, Aerial Hoop, Çocuklara Özel.
+- Yoga galerisi Gallery/yoga klasöründen yenilendi: 12 fotoğraf (16:9, kimse kesilmeden).
 - Fitness programları: Fitness, Cardio, Functional, Resistance.
 - Dance programları: Latin Dansları, Swing Dansları, Çocuklara Özel, Düğün Dansı, Tango,
   Flamenko / Paso Doble (kutuda alt alta).
