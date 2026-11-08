@@ -17,10 +17,12 @@ V12’de:
   Yanlarda kadın (solda) ve erkek (sağda) aura görselleri (assets/home/*-aura.webp, siyah zemin saydam;
   DNA yok). İnsanlar ve aura soluk; aurada baştan aşağı ve aşağıdan yukarı kuyruklu yıldız gibi sabit hızla geçen iki ışık yalnızca
   geçtiği aura çizgilerini parlatır (bantlar *-aura-isik.webp ile maskeli), bant katmanları hafifçe salınır,
-  baştan ayağa zerreler saçılır. Süreler her turda rastgele (hareket CSS; JS yalnızca tur sonunda değer seçer). Eski yan aura perdesi (canvas) kaldırıldı.
-- SSS: Kadınlara Özel · Erkeklere Özel · Kadın & Erkek Karma · Çocuklara Özel (bant sayfa genişliğinde,
-  soruların üstünde); 10 yeni soru-cevap.
-- Hakkımızda: yeni biyografi, altın renkli iki söz, federasyonlar; sayfa uzun olduğu için kayar,
+  baştan ayağa zerreler saçılır. Süreler her turda rastgele (hareket CSS; JS yalnızca tur sonunda değer seçer); ışık akışı kadın ve erkekte
+  senkron (aynı data-aura-sync adı = aynı süre ve başlangıç). Eski yan aura perdesi (canvas) kaldırıldı.
+- SSS: yeni yerleşim — ortada "Sıkça Sorulan Sorular" başlığı; altında üç kart:
+  Sınıflar (Kadınlara Özel · Erkeklere Özel · Kadın & Erkek Karma · Çocuklara Özel), Seanslar, Dersler; sonra 10 soru-cevap ve yanında iletişim kutusu (masaüstünde
+  sayfa kayarken yerinde durur). Üretici: aura-tools/faq-layout-v12.js.
+- Hakkımızda: yeni biyografi (iki yana yaslı), altın renkli iki söz, federasyonlar; sayfa uzun olduğu için kayar,
   masaüstünde fotoğraf yerinde durur.
 - Sayfa üretici ve ölçüm araçları: Desktop/Aura/aura-tools (branches.js, static-pages.js, shot.js).
 

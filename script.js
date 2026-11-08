@@ -97,9 +97,46 @@ document.addEventListener('dragstart', (event) => {
   if (event.target.closest('img')) event.preventDefault();
 });
 
-// Ana sayfa: kadın ve erkek figürlerindeki aura. Hareketi CSS yapar; burada yalnızca her tur
+// Ana sayfa: kadın ve erkek figürlerindeki aura. Hareketi CSS yapar; JS yalnızca her tur
 // bittiğinde yeni rastgele süre/gecikme ve zerre yolu seçilir (her karede çalışan JS yok).
 // Böylece aşağı/yukarı dolaşan ışık, salınım ve saçılan zerreler hiç aynı ritimde tekrarlamaz.
+// Işık bantları ve salınım: kadın ve erkek figüründe AYNI anda. Aynı data-aura-sync adını
+// taşıyan öğeler aynı rastgele süre/arayı paylaşır; ilki bitince hepsi birlikte yeniden başlar.
+// (Her tur yine farklı süre ve kısa, rastgele bir ara seçilir.)
+if (!reducedMotion) {
+  const rand = (min, max) => min + Math.random() * (max - min);
+  const groups = new Map();
+  document.querySelectorAll('.home-figure [data-aura-rand]').forEach((el, i) => {
+    const key = el.dataset.auraSync || `solo-${i}`;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(el);
+  });
+  groups.forEach((members) => {
+    const lead = members[0];
+    const [min, max] = lead.dataset.auraRand.split(',').map(Number);
+    // isteğe bağlı tur arası bekleme (ışık geçişleri art arda gelmesin)
+    const [gapMin, gapMax] = (lead.dataset.auraGap || '0,0.6').split(',').map(Number);
+    const pick = (first) => {
+      const duration = rand(min, max);
+      // ilk turda sayfa açılır açılmaz akışın ortasından başlasın
+      const delay = first ? -rand(0, duration) : rand(gapMin, gapMax);
+      members.forEach((el) => {
+        el.style.animationDuration = `${duration.toFixed(2)}s`;
+        el.style.animationDelay = `${delay.toFixed(2)}s`;
+      });
+    };
+    pick(true);
+    // yalnızca kendi animasyonu bitince (içteki öğelerden kabarcıklanan olaylar sayılmaz)
+    lead.addEventListener('animationend', (event) => {
+      if (event.target !== lead) return;
+      pick(false);
+      members.forEach((el) => { el.style.animationName = 'none'; });
+      void lead.offsetWidth;
+      members.forEach((el) => { el.style.animationName = ''; });
+    });
+  });
+}
+
 document.querySelectorAll('.home-figure').forEach((figure) => {
   if (reducedMotion) return;
   const rand = (min, max) => min + Math.random() * (max - min);
@@ -109,22 +146,6 @@ document.querySelectorAll('.home-figure').forEach((figure) => {
     void el.offsetWidth;
     el.style.animationName = '';
   };
-
-  // Işık bantları ve salınım: her tur farklı süre ve kısa, rastgele bir ara.
-  figure.querySelectorAll('[data-aura-rand]').forEach((el) => {
-    const [min, max] = el.dataset.auraRand.split(',').map(Number);
-    // isteğe bağlı tur arası bekleme (ışık geçişleri art arda gelmesin)
-    const [gapMin, gapMax] = (el.dataset.auraGap || '0,0.6').split(',').map(Number);
-    const pick = (first) => {
-      const duration = rand(min, max);
-      el.style.animationDuration = `${duration.toFixed(2)}s`;
-      // ilk turda sayfa açılır açılmaz farklı yerlerden başlasınlar
-      el.style.animationDelay = `${(first ? -rand(0, duration) : rand(gapMin, gapMax)).toFixed(2)}s`;
-    };
-    pick(true);
-    // yalnızca kendi animasyonu bitince (içteki öğelerden kabarcıklanan olaylar sayılmaz)
-    el.addEventListener('animationend', (event) => { if (event.target !== el) return; pick(false); restart(el); });
-  });
 
   // Zerreler: baştan ayağa vücudun kenarından doğar, dışarı (ve biraz yukarı) savrulur.
   const colours = ['140,210,255', '90,160,255', '110,240,170', '200,240,255'];
