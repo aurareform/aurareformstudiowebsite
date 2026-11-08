@@ -97,6 +97,58 @@ document.addEventListener('dragstart', (event) => {
   if (event.target.closest('img')) event.preventDefault();
 });
 
+// Ana sayfa: kadın ve erkek figürlerindeki aura. Hareketi CSS yapar; burada yalnızca her tur
+// bittiğinde yeni rastgele süre/gecikme ve zerre yolu seçilir (her karede çalışan JS yok).
+// Böylece aşağı/yukarı dolaşan ışık, salınım ve saçılan zerreler hiç aynı ritimde tekrarlamaz.
+document.querySelectorAll('.home-figure').forEach((figure) => {
+  if (reducedMotion) return;
+  const rand = (min, max) => min + Math.random() * (max - min);
+  // Animasyonu baştan oynat (tüm tarayıcılarda çalışan yol).
+  const restart = (el) => {
+    el.style.animationName = 'none';
+    void el.offsetWidth;
+    el.style.animationName = '';
+  };
+
+  // Işık bantları ve salınım: her tur farklı süre ve kısa, rastgele bir ara.
+  figure.querySelectorAll('[data-aura-rand]').forEach((el) => {
+    const [min, max] = el.dataset.auraRand.split(',').map(Number);
+    // isteğe bağlı tur arası bekleme (ışık geçişleri art arda gelmesin)
+    const [gapMin, gapMax] = (el.dataset.auraGap || '0,0.6').split(',').map(Number);
+    const pick = (first) => {
+      const duration = rand(min, max);
+      el.style.animationDuration = `${duration.toFixed(2)}s`;
+      // ilk turda sayfa açılır açılmaz farklı yerlerden başlasınlar
+      el.style.animationDelay = `${(first ? -rand(0, duration) : rand(gapMin, gapMax)).toFixed(2)}s`;
+    };
+    pick(true);
+    // yalnızca kendi animasyonu bitince (içteki öğelerden kabarcıklanan olaylar sayılmaz)
+    el.addEventListener('animationend', (event) => { if (event.target !== el) return; pick(false); restart(el); });
+  });
+
+  // Zerreler: baştan ayağa vücudun kenarından doğar, dışarı (ve biraz yukarı) savrulur.
+  const colours = ['140,210,255', '90,160,255', '110,240,170', '200,240,255'];
+  figure.querySelectorAll('.aura-motes b').forEach((mote) => {
+    const pick = (first) => {
+      const y = rand(3, 96);                                   // baştan ayağa
+      const half = y < 12 ? 11 : y < 58 ? 30 : 18;              // baş, gövde+kollar, bacaklar
+      const side = Math.random() < 0.5 ? -1 : 1;
+      const x = 50 + side * rand(half * 0.55, half + 6);
+      const time = rand(2.6, 5.4);
+      mote.style.setProperty('--x', `${x.toFixed(1)}%`);
+      mote.style.setProperty('--y', `${y.toFixed(1)}%`);
+      mote.style.setProperty('--dx', `${(side * rand(1.2, 3.6)).toFixed(2)}vw`);
+      mote.style.setProperty('--dy', `${(-rand(0.4, 4.5)).toFixed(2)}vh`);
+      mote.style.setProperty('--s', `${rand(3, 8).toFixed(1)}px`);
+      mote.style.setProperty('--c', colours[Math.floor(Math.random() * colours.length)]);
+      mote.style.animationDuration = `${time.toFixed(2)}s`;
+      mote.style.animationDelay = `${(first ? -rand(0, time) : rand(0, 1.4)).toFixed(2)}s`;
+    };
+    pick(true);
+    mote.addEventListener('animationend', (event) => { if (event.target !== mote) return; pick(false); restart(mote); });
+  });
+});
+
 // Sayaçlar: görününce 0'dan hedef değere yumuşak artış.
 const countUp = (el) => {
   const target = Number(el.dataset.count);
@@ -318,7 +370,7 @@ if (!reducedMotion) {
   });
 }
 
-// Branş galerileri: yumuşak geçiş + yavaş yakınlaşma, ilerleme çizgisiyle otomatik geçiş,
+// Branş galerileri: yumuşak geçişli (solma) otomatik geçiş,
 // klavye ve parmakla kaydırma (V11: oklar ve küçük resimler kaldırıldı; kod yoksa atlar).
 document.querySelectorAll('[data-branch-gallery]').forEach((gallery) => {
   const slides = [...gallery.querySelectorAll('.bg-slide')];
@@ -326,19 +378,26 @@ document.querySelectorAll('[data-branch-gallery]').forEach((gallery) => {
   const strip = gallery.querySelector('.bg-thumbs');
   const frame = gallery.querySelector('.bg-frame');
   const counter = gallery.querySelector('[data-current]');
-  const bar = gallery.querySelector('.bg-progress i');
   if (slides.length < 2) return;
 
   let index = 0;
 
-  // İlerleme çizgisi dolunca sonraki fotoğrafa geçilir; üzerine gelince CSS çizgiyi
-  // (dolayısıyla geçişi de) duraklatır.
-  const runBar = () => {
-    if (!bar || reducedMotion) return;
-    bar.classList.remove('is-running');
-    void bar.offsetWidth; // animasyonu baştan başlat
-    bar.classList.add('is-running');
+  // Otomatik geçiş: süre CSS'teki --interval (ör. 2s). Fare üzerine gelince durmaz; tüm
+  // tarayıcılarda aynı çalışan basit bir zamanlayıcı. Elle geçişte süre baştan başlar,
+  // sekme gizliyken boşuna çalışmaz.
+  const interval = () => {
+    const raw = getComputedStyle(gallery).getPropertyValue('--interval').trim();
+    const value = parseFloat(raw);
+    if (!value) return 2000;
+    return raw.endsWith('ms') ? value : value * 1000;
   };
+  let timer;
+  const runBar = () => {
+    window.clearTimeout(timer);
+    if (document.hidden) return;
+    timer = window.setTimeout(() => show(index + 1), interval());
+  };
+  document.addEventListener('visibilitychange', runBar);
 
   const show = (next) => {
     index = (next + slides.length) % slides.length;
@@ -360,7 +419,6 @@ document.querySelectorAll('[data-branch-gallery]').forEach((gallery) => {
     runBar();
   };
 
-  bar?.addEventListener('animationend', () => show(index + 1));
   gallery.querySelector('[data-prev]')?.addEventListener('click', () => show(index - 1));
   gallery.querySelector('[data-next]')?.addEventListener('click', () => show(index + 1));
   thumbs.forEach((thumb, i) => thumb.addEventListener('click', () => show(i)));

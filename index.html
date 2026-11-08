@@ -27,14 +27,24 @@
       <div class="hero-overlay"></div>
       <!-- Kürenin yerine: yazılarla karışmayan, çok koyu ve soluk Aura dünya logosu (hareketsiz) -->
       <img class="hero-mark" src="assets/earthLogo.png" alt="" draggable="false">
-      <!-- Solda kadın, sağda erkek: orijinal sarmal olduğu gibi kalır; üzerinde ön yüzde soldan sağa, arka yüzde sağdan sola geçen ışık dönme hissi verir (yalnızca CSS) -->
+      <!-- Solda kadın, sağda erkek: soluk figür; aurada baştan aşağı ve aşağıdan yukarı dolaşan ışık bantları
+           (yalnızca aura çizgileri parlar), baştan ayağa saçılan zerreler. Hareketi CSS yapar; JS yalnızca her tur
+           sonunda yeni rastgele süre/yol seçer. -->
       <div class="home-figure home-figure-left">
-        <img src="assets/home/kadin-anasayfa.jpg" alt="" draggable="false" decoding="async">
-        <span class="helix-shade"></span><span class="helix-shine"><i class="shine-front"></i><i class="shine-back"></i></span>
+        <div class="figure-inner">
+          <img class="figure-art" src="assets/home/kadin-aura.webp" alt="" draggable="false" decoding="async">
+          <span class="aura-flow aura-flow-down" data-aura-rand="9,14"><i data-aura-rand="7,10" data-aura-gap="0.5,3.5"></i></span>
+          <span class="aura-flow aura-flow-up" data-aura-rand="10,15"><i data-aura-rand="8,11" data-aura-gap="1.5,5"></i></span>
+          <span class="aura-motes"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></span>
+        </div>
       </div>
       <div class="home-figure home-figure-right">
-        <img src="assets/home/erkek-anasayfa.jpg" alt="" draggable="false" decoding="async">
-        <span class="helix-shade"></span><span class="helix-shine"><i class="shine-front"></i><i class="shine-back"></i></span>
+        <div class="figure-inner">
+          <img class="figure-art" src="assets/home/erkek-aura.webp" alt="" draggable="false" decoding="async">
+          <span class="aura-flow aura-flow-down" data-aura-rand="9,14"><i data-aura-rand="7,10" data-aura-gap="0.5,3.5"></i></span>
+          <span class="aura-flow aura-flow-up" data-aura-rand="10,15"><i data-aura-rand="8,11" data-aura-gap="1.5,5"></i></span>
+          <span class="aura-motes"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></span>
+        </div>
       </div>
       <div class="hero-spotlight"></div>
     </div>

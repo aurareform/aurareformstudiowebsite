@@ -11,12 +11,15 @@ V12’de:
   Dance (Ritim · Uyum · Enerji · İfade). Çocuk programları branşlardan çıkarıldı.
 - Tüm sayfalarda başlık okları: geri ok ana sayfaya, ileri ok bir sonraki sayfaya
   (Pilates → Yoga → Fitness → Dance → Kids → Hakkımızda → SSS → İletişim → Ana sayfa).
-- Galeriler her 1 saniyede bir fotoğraf değiştirir; yakınlaştırma yok, yalnızca solma/belirme geçişi. Her galerinin altında yeni hak/KVKK notu.
+- Galeriler her 2 saniyede bir fotoğraf değiştirir (zamanlayıcı; üzerine gelince durmaz, ilerleme çizgisi yok);
+  yakınlaştırma yok, yalnızca solma/belirme geçişi. Her galerinin altında yeni hak/KVKK notu.
 - Ana sayfa: "longevity & wellness"; açıklama her cihazda "kişisel motivasyonu," sonrasında alt satırda.
-  Yanlarda kadın (solda) ve erkek (sağda) DNA görselleri (assets/home/); yazıya bakan taraf kararır,
-  dış sarmal çizimi olduğu gibi kalır; dönme hissini üzerinden geçen ışık verir (ön yüzde soldan sağa
-  parlak, arka yüzde sağdan sola soluk; yalnızca CSS). Eski yan aura perdesi (canvas) kaldırıldı.
-- SSS: Kadınlara Özel · Erkeklere Özel · Kadın & Erkek Karma · Çocuklara Özel; 10 yeni soru-cevap.
+  Yanlarda kadın (solda) ve erkek (sağda) aura görselleri (assets/home/*-aura.webp, siyah zemin saydam;
+  DNA yok). İnsanlar ve aura soluk; aurada baştan aşağı ve aşağıdan yukarı kuyruklu yıldız gibi sabit hızla geçen iki ışık yalnızca
+  geçtiği aura çizgilerini parlatır (bantlar *-aura-isik.webp ile maskeli), bant katmanları hafifçe salınır,
+  baştan ayağa zerreler saçılır. Süreler her turda rastgele (hareket CSS; JS yalnızca tur sonunda değer seçer). Eski yan aura perdesi (canvas) kaldırıldı.
+- SSS: Kadınlara Özel · Erkeklere Özel · Kadın & Erkek Karma · Çocuklara Özel (bant sayfa genişliğinde,
+  soruların üstünde); 10 yeni soru-cevap.
 - Hakkımızda: yeni biyografi, altın renkli iki söz, federasyonlar; sayfa uzun olduğu için kayar,
   masaüstünde fotoğraf yerinde durur.
 - Sayfa üretici ve ölçüm araçları: Desktop/Aura/aura-tools (branches.js, static-pages.js, shot.js).
@@ -40,7 +43,8 @@ V11'de:
   menü sırasıyla: Pilates → Yoga → Fitness → Dance → Hakkımızda → SSS → İletişim → Pilates.
 - Branş galerileri: fotoğraf okları ve alttaki küçük resimler kaldırıldı; fotoğraflar kendiliğinden
   3,8 sn'de bir geçer (önce 5 sn). Üzerine gelince durur; klavye okları ve parmakla kaydırma çalışır.
-- Pilates programları: Reformer, Tower Mat, Çocuk Gymnastics, Schroth Egzersizleri,
+- Pilates programları (V12): Reformer, Tower Mat, Schroth, Ladder Barrel, Combo Chair, Corelign; galeride 7 fotoğraf.
+- (V11) Pilates programları: Reformer, Tower Mat, Çocuk Gymnastics, Schroth Egzersizleri,
   L.Barrel & Chair, Corelign.
 - Pilates galerisi Gallery/pilates klasöründen yenilendi: 10 fotoğraf (16:9, kimse kesilmeden).
 - Yoga programları: Mat Yoga, Aerial & Hammock Yoga, Aerial Hoop, Çocuklara Özel.
