@@ -1,3 +1,26 @@
+AURA REFORM — V12
+=================
+
+V12’de:
+- Yeni KIDS sayfası (kids.html) ve menüde KIDS: Enerji · Denge · Odak · Sinerji;
+  Gymnastics · Dance · Yaratıcı Drama · Çocuk Yogası. Galeri 14 fotoğraf: Pilates (4), Yoga (4),
+  Dance (3) galerilerindeki çocuk fotoğrafları + gönderilen 3 fotoğraf; branşlar ve açılar sırayla değişir.
+- Pilates/Yoga/Dance galerilerinden çocuk fotoğrafları çıkarıldı (Pilates 6, Yoga 8, Dance 7 fotoğraf).
+- Yeni mavi sloganlar ve programlar: Pilates (Kontrol · Postür · Denge · Güç), Yoga (Nefes · Odak · Akış ·
+  Koordinasyon), Fitness (Performans · Direnç · Dayanıklılık · Hız; + TRX, Step Aerobics),
+  Dance (Ritim · Uyum · Enerji · İfade). Çocuk programları branşlardan çıkarıldı.
+- Tüm sayfalarda başlık okları: geri ok ana sayfaya, ileri ok bir sonraki sayfaya
+  (Pilates → Yoga → Fitness → Dance → Kids → Hakkımızda → SSS → İletişim → Ana sayfa).
+- Galeriler her 1 saniyede bir fotoğraf değiştirir. Her galerinin altında yeni hak/KVKK notu.
+- Ana sayfa: "longevity & wellness"; açıklama her cihazda "kişisel motivasyonu," sonrasında alt satırda.
+  Yanlarda kadın (solda) ve erkek (sağda) DNA görselleri (assets/home/); yazıya bakan taraf kararır,
+  dış sarmal çizimi olduğu gibi kalır; dönme hissini üzerinden geçen ışık verir (ön yüzde soldan sağa
+  parlak, arka yüzde sağdan sola soluk; yalnızca CSS). Eski yan aura perdesi (canvas) kaldırıldı.
+- SSS: Kadınlara Özel · Erkeklere Özel · Kadın & Erkek Karma · Çocuklara Özel; 10 yeni soru-cevap.
+- Hakkımızda: yeni biyografi, altın renkli iki söz, federasyonlar; sayfa uzun olduğu için kayar,
+  masaüstünde fotoğraf yerinde durur.
+- Sayfa üretici ve ölçüm araçları: Desktop/Aura/aura-tools (branches.js, static-pages.js, shot.js).
+
 AURA REFORM — V11
 =================
 
