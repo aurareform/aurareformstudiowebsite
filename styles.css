@@ -2248,14 +2248,12 @@ body::before {
   transition: opacity 1.1s ease;
 }
 .bg-slide.is-active { opacity: 1; }
+/* Photos stay still: only fade in / fade out (no zoom) */
 .bg-slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.04);
 }
-.bg-slide.is-active img { animation: kenBurns 7.5s ease-out forwards; }
-.bg-slide:nth-child(even).is-active img { animation-name: kenBurnsAlt; }
 .bg-viewport::after {
   content: '';
   position: absolute;
@@ -2404,14 +2402,6 @@ body::before {
   0%, 60% { transform: translateX(-120%); }
   100% { transform: translateX(120%); }
 }
-@keyframes kenBurns {
-  from { transform: scale(1.04) translate3d(0, 0, 0); }
-  to { transform: scale(1.12) translate3d(-1.5%, -1%, 0); }
-}
-@keyframes kenBurnsAlt {
-  from { transform: scale(1.12) translate3d(1.5%, 1%, 0); }
-  to { transform: scale(1.04) translate3d(0, 0, 0); }
-}
 @keyframes slideProgress { to { transform: scaleX(1); } }
 
 /* Laptop heights: tighten so the page stays one screen */
@@ -2462,8 +2452,7 @@ body::before {
   .program-pills li::before,
   .branch-page .btn-primary::after,
   .bg-frame::before,
-  .bg-frame::after,
-  .bg-slide.is-active img { animation: none !important; }
+  .bg-frame::after { animation: none !important; }
   .bg-frame { transform: none; }
 }
 
@@ -3183,10 +3172,9 @@ img {
    V11 — BRANCH GALLERY: NO ARROWS OR THUMBNAILS, FASTER AUTOPLAY
    The thumbnail strip is gone, so the photo frame takes that height.
    ========================================================= */
-/* V12: a new photo every second; short crossfade, slow zoom (cut off by the next photo) */
+/* V12: a new photo every second; crossfade only (fade out / fade in) */
 .branch-gallery { --interval: 1s; }
-.bg-slide { transition-duration: .45s; }
-.bg-slide.is-active img { animation-duration: 3s; }
+.bg-slide { transition-duration: .5s; }
 /* V12: the longer rights notice under every gallery */
 .bg-note { font-size: 10.5px; line-height: 1.45; }
 .bg-frame { max-height: calc(100svh - var(--header-h) - 120px); }

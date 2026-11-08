@@ -11,7 +11,7 @@ V12’de:
   Dance (Ritim · Uyum · Enerji · İfade). Çocuk programları branşlardan çıkarıldı.
 - Tüm sayfalarda başlık okları: geri ok ana sayfaya, ileri ok bir sonraki sayfaya
   (Pilates → Yoga → Fitness → Dance → Kids → Hakkımızda → SSS → İletişim → Ana sayfa).
-- Galeriler her 1 saniyede bir fotoğraf değiştirir. Her galerinin altında yeni hak/KVKK notu.
+- Galeriler her 1 saniyede bir fotoğraf değiştirir; yakınlaştırma yok, yalnızca solma/belirme geçişi. Her galerinin altında yeni hak/KVKK notu.
 - Ana sayfa: "longevity & wellness"; açıklama her cihazda "kişisel motivasyonu," sonrasında alt satırda.
   Yanlarda kadın (solda) ve erkek (sağda) DNA görselleri (assets/home/); yazıya bakan taraf kararır,
   dış sarmal çizimi olduğu gibi kalır; dönme hissini üzerinden geçen ışık verir (ön yüzde soldan sağa
