@@ -19,7 +19,7 @@ V12’de:
   geçtiği aura çizgilerini parlatır (bantlar *-aura-isik.webp ile maskeli), bant katmanları hafifçe salınır,
   baştan ayağa zerreler saçılır. Süreler her turda rastgele (hareket CSS; JS yalnızca tur sonunda değer seçer); ışık akışı kadın ve erkekte
   senkron (aynı data-aura-sync adı = aynı süre ve başlangıç). Eski yan aura perdesi (canvas) kaldırıldı.
-- SSS: yeni yerleşim — ortada "Sıkça Sorulan Sorular" başlığı; altında üç kart:
+- SSS: yeni yerleşim — ortada "Sıkça Sorulan Sorular" başlığı (diğer sayfa başlıklarıyla aynı yazı tipi ve punto); altında üç kart:
   Sınıflar (Kadınlara Özel · Erkeklere Özel · Kadın & Erkek Karma · Çocuklara Özel), Seanslar, Dersler; sonra 10 soru-cevap ve yanında iletişim kutusu (masaüstünde
   sayfa kayarken yerinde durur). Üretici: aura-tools/faq-layout-v12.js.
 - Hakkımızda: yeni biyografi (iki yana yaslı), altın renkli iki söz, federasyonlar; sayfa uzun olduğu için kayar,
